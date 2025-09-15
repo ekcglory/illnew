@@ -1,0 +1,207 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Ilum Stars NGO Design System
+Navy Blue (#0A1D3B), Gold (#FFC107), White
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    /* Brand Colors */
+    --background: 0 0% 100%;
+    --foreground: 217 66% 14%;
+    
+    /* Navy Blue Primary - Updated to match logo */
+    --primary: 220 85% 20%;
+    --primary-foreground: 0 0% 100%;
+    --primary-hover: 220 85% 25%;
+    
+    /* Gold Accent */
+    --gold: 45 100% 51%;
+    --gold-foreground: 217 66% 14%;
+    --gold-hover: 45 100% 45%;
+    
+    /* UI Colors */
+    --card: 0 0% 100%;
+    --card-foreground: 217 66% 14%;
+    
+    --popover: 0 0% 100%;
+    --popover-foreground: 217 66% 14%;
+    
+    --secondary: 217 33% 95%;
+    --secondary-foreground: 217 66% 14%;
+    
+    --muted: 217 33% 96%;
+    --muted-foreground: 217 20% 45%;
+    
+    --accent: 45 100% 96%;
+    --accent-foreground: 217 66% 14%;
+    
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    
+    --border: 217 33% 90%;
+    --input: 217 33% 90%;
+    --ring: 217 66% 14%;
+    
+    /* Custom Design Tokens - Updated with brand navy blue */
+    --hero-gradient: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(220 85% 15%) 50%, hsl(var(--primary)) 100%);
+    --gold-gradient: linear-gradient(135deg, hsl(45 100% 51%), hsl(45 100% 45%));
+    --inspiration-gradient: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(45 100% 51%) 100%);
+    --pulse-gradient: linear-gradient(90deg, hsl(var(--primary)), hsl(45 100% 51%), hsl(var(--primary)));
+    --shimmer-gradient: linear-gradient(90deg, transparent, rgba(255, 193, 7, 0.4), transparent);
+    
+    --shadow-soft: 0 4px 6px -1px hsl(217 66% 14% / 0.1);
+    --shadow-medium: 0 10px 15px -3px hsl(217 66% 14% / 0.1);
+    --shadow-large: 0 20px 25px -5px hsl(217 66% 14% / 0.1);
+    --shadow-gold: 0 4px 20px hsl(45 100% 51% / 0.3);
+    
+    --animation-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --animation-bounce: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    --animation-pulse: all 2s cubic-bezier(0.4, 0, 0.6, 1);
+    --animation-shimmer: shimmer 2s linear infinite;
+
+    --radius: 0.5rem;
+
+    --sidebar-background: 0 0% 98%;
+
+    --sidebar-foreground: 240 5.3% 26.1%;
+
+    --sidebar-primary: 240 5.9% 10%;
+
+    --sidebar-primary-foreground: 0 0% 98%;
+
+    --sidebar-accent: 240 4.8% 95.9%;
+
+    --sidebar-accent-foreground: 240 5.9% 10%;
+
+    --sidebar-border: 220 13% 91%;
+
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    /* Dark mode maintains Ilum Stars branding */
+    --background: 217 66% 14%;
+    --foreground: 0 0% 100%;
+    
+    --primary: 45 100% 51%;
+    --primary-foreground: 217 66% 14%;
+    --primary-hover: 45 100% 45%;
+    
+    --card: 217 66% 18%;
+    --card-foreground: 0 0% 100%;
+    
+    --popover: 217 66% 18%;
+    --popover-foreground: 0 0% 100%;
+    
+    --secondary: 217 33% 25%;
+    --secondary-foreground: 0 0% 100%;
+    
+    --muted: 217 33% 20%;
+    --muted-foreground: 217 20% 65%;
+    
+    --accent: 45 100% 20%;
+    --accent-foreground: 45 100% 51%;
+    
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    
+    --border: 217 33% 25%;
+    --input: 217 33% 25%;
+    --ring: 45 100% 51%;
+    
+    --hero-gradient: linear-gradient(135deg, hsl(217 66% 14%), hsl(217 66% 8%));
+    --inspiration-gradient: linear-gradient(135deg, hsl(217 66% 8%) 0%, hsl(45 100% 51%) 100%);
+    --shadow-soft: 0 4px 6px -1px hsl(0 0% 0% / 0.3);
+    --shadow-medium: 0 10px 15px -3px hsl(0 0% 0% / 0.3);
+    --shadow-large: 0 20px 25px -5px hsl(0 0% 0% / 0.3);
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@layer utilities {
+  .animate-shimmer {
+    background: var(--shimmer-gradient);
+    background-size: 200% 100%;
+    animation: shimmer 2s linear infinite;
+  }
+  
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+  
+  .animate-pulse-glow {
+    animation: pulse-glow 2s ease-in-out infinite;
+  }
+
+  .animate-fade-in-up {
+    animation: fadeInUp 0.6s ease-out forwards;
+  }
+
+  .animate-scale-hover {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .animate-scale-hover:hover {
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: var(--shadow-large);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 20px hsl(var(--gold) / 0.3);
+  }
+  50% {
+    box-shadow: 0 0 40px hsl(var(--gold) / 0.6);
+  }
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
