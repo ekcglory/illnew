@@ -11,13 +11,18 @@ import About from "./pages/About";
 import Programs from "./pages/Programs";
 import Leadership from "./pages/Leadership";
 import Enrollment from "./pages/Enrollment";
+import VolunteerApplication from "./pages/VolunteerApplication";
 import GetInvolved from "./pages/GetInvolved";
 import Contact from "./pages/Contact";
 import Blog from "./pages/Blog";
+import BlogPost from "./pages/BlogPost";
 import AdminLogin from "./pages/admin/AdminLogin";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import AdminEnrollments from "./pages/admin/AdminEnrollments";
+import AdminVolunteers from "./pages/admin/AdminVolunteers";
 import AdminBlog from "./pages/admin/AdminBlog";
+import AdminBlogEditor from "./pages/admin/AdminBlogEditor";
+import AdminAdmissionMailer from "./pages/admin/AdminAdmissionMailer";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -38,13 +43,19 @@ const App = () => (
               <Route path="/programs" element={<Programs />} />
               <Route path="/leadership" element={<Leadership />} />
               <Route path="/enrollment" element={<Enrollment />} />
+              <Route path="/volunteer" element={<VolunteerApplication />} />
               <Route path="/get-involved" element={<GetInvolved />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/blog" element={<Blog />} />
+              <Route path="/blog/:slug" element={<BlogPost />} />
               <Route path="/admin/login" element={<AdminLogin />} />
               <Route path="/admin/dashboard" element={<AdminDashboard />} />
               <Route path="/admin/enrollments" element={<AdminEnrollments />} />
+              <Route path="/admin/volunteers" element={<AdminVolunteers />} />
               <Route path="/admin/blog" element={<AdminBlog />} />
+              <Route path="/admin/blog/new" element={<AdminBlogEditor />} />
+              <Route path="/admin/blog/edit/:id" element={<AdminBlogEditor />} />
+              <Route path="/admin/admission-mailer" element={<AdminAdmissionMailer />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </main>

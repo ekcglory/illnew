@@ -7,6 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
+import { apiService } from "@/services/api";
 import { Calendar, Clock, Users, Star, CheckCircle, Upload, User, Mail, Phone, MapPin } from "lucide-react";
 
 interface EnrollmentForm {
@@ -21,6 +22,7 @@ interface EnrollmentForm {
   experience: string;
   motivation: string;
   availability: string;
+  howDidYouHear: string;
 }
 
 const Enrollment = () => {
@@ -36,20 +38,34 @@ const Enrollment = () => {
     setIsSubmitting(true);
     
     try {
-      // Simulate API call - replace with actual endpoint
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      
-      console.log("Enrollment Data:", data);
-      
-      setIsSubmitted(true);
-      toast({
-        title: "Application Submitted Successfully!",
-        description: "We'll review your application and get back to you within 48 hours.",
+      const response = await apiService.submitEnrollment({
+        fullName: data.fullName,
+        email: data.email,
+        phone: data.phone,
+        age: parseInt(data.age),
+        gender: data.gender,
+        skillInterest: data.skillInterest,
+        location: data.location,
+        education: data.education,
+        experience: data.experience,
+        motivation: data.motivation,
+        availability: data.availability,
+        howDidYouHear: data.howDidYouHear
       });
+      
+      if (response.success) {
+        setIsSubmitted(true);
+        toast({
+          title: "Application Submitted Successfully!",
+          description: "We'll review your application and get back to you within 48 hours.",
+        });
+      } else {
+        throw new Error(response.message);
+      }
     } catch (error) {
       toast({
         title: "Submission Failed",
-        description: "Please try again or contact us directly.",
+        description: error instanceof Error ? error.message : "Please try again or contact us directly.",
         variant: "destructive",
       });
     } finally {
@@ -282,12 +298,26 @@ const Enrollment = () => {
                         <SelectValue placeholder="Select your primary interest" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="web-development">Web Development</SelectItem>
-                        <SelectItem value="mobile-development">Mobile Development</SelectItem>
-                        <SelectItem value="iot-embedded">IoT & Embedded Systems</SelectItem>
-                        <SelectItem value="graphic-design">Graphic Design</SelectItem>
-                        <SelectItem value="digital-marketing">Digital Marketing</SelectItem>
-                        <SelectItem value="photography-video">Photography & Video</SelectItem>
+                        <optgroup label="Digital Skills">
+                          <SelectItem value="web-development">Web Development</SelectItem>
+                          <SelectItem value="mobile-development">Mobile Development</SelectItem>
+                          <SelectItem value="iot-embedded">IoT & Embedded Systems</SelectItem>
+                          <SelectItem value="ai-for-creatives">AI for Creatives</SelectItem>
+                          <SelectItem value="data-analysis">Data Analysis & Science</SelectItem>
+                        </optgroup>
+                        <optgroup label="Creative Skills">
+                          <SelectItem value="graphic-design">Graphic Design</SelectItem>
+                          <SelectItem value="photography-video">Photography & Video</SelectItem>
+                          <SelectItem value="digital-marketing">Digital Marketing</SelectItem>
+                          <SelectItem value="content-writing">Content Writing</SelectItem>
+                        </optgroup>
+                        <optgroup label="Leadership & Capacity Building">
+                          <SelectItem value="one-on-one-mentoring">One-on-One Mentoring</SelectItem>
+                          <SelectItem value="character-building">Character Building</SelectItem>
+                          <SelectItem value="life-skills">Life Skills</SelectItem>
+                          <SelectItem value="project-management">Project Management</SelectItem>
+                          <SelectItem value="modern-office-tools">Modern Office Tools</SelectItem>
+                        </optgroup>
                         <SelectItem value="general">General (Undecided)</SelectItem>
                       </SelectContent>
                     </Select>
@@ -313,6 +343,32 @@ const Enrollment = () => {
                       placeholder="Describe any relevant experience in technology, design, or related fields..."
                       rows={3}
                     />
+                  </div>
+                </div>
+
+                {/* How did you hear about us */}
+                <div className="space-y-4">
+                  <div>
+                    <Label htmlFor="howDidYouHear">How did you hear about us? *</Label>
+                    <Select onValueChange={(value) => setValue("howDidYouHear", value)}>
+                      <SelectTrigger className={errors.howDidYouHear ? "border-destructive" : ""}>
+                        <SelectValue placeholder="Select how you heard about us" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="social-media">Social Media</SelectItem>
+                        <SelectItem value="friend-referral">Friend/Family Referral</SelectItem>
+                        <SelectItem value="community-announcement">Community Announcement</SelectItem>
+                        <SelectItem value="church">Church</SelectItem>
+                        <SelectItem value="school">School/University</SelectItem>
+                        <SelectItem value="online-search">Online Search</SelectItem>
+                        <SelectItem value="flyer-poster">Flyer/Poster</SelectItem>
+                        <SelectItem value="radio-tv">Radio/TV</SelectItem>
+                        <SelectItem value="other">Other</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    {errors.howDidYouHear && (
+                      <p className="text-destructive text-sm mt-1">Please tell us how you heard about us</p>
+                    )}
                   </div>
                 </div>
 

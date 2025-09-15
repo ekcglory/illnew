@@ -95,7 +95,7 @@ const GetInvolved = () => {
                   Share your expertise and passion by mentoring, training, or supporting our programs.
                 </p>
                 <Button asChild className="w-full bg-primary hover:bg-primary-hover">
-                  <a href="#volunteer">Learn More</a>
+                  <Link to="/volunteer">Apply Now</Link>
                 </Button>
               </CardContent>
             </Card>
@@ -210,9 +210,11 @@ const GetInvolved = () => {
           </div>
 
           <div className="text-center">
-            <Button size="lg" className="bg-primary hover:bg-primary-hover px-8">
-              Apply to Volunteer
-              <ArrowRight className="ml-2 h-5 w-5" />
+            <Button size="lg" asChild className="bg-primary hover:bg-primary-hover px-8">
+              <Link to="/volunteer">
+                Apply to Volunteer
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Link>
             </Button>
           </div>
         </div>

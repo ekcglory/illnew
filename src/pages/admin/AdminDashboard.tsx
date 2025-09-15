@@ -3,13 +3,15 @@ import { Link } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Users, FileText, Download, Plus, Eye } from "lucide-react";
+import { Users, FileText, Download, Plus, Eye, UserCheck, Mail } from "lucide-react";
 
 const AdminDashboard = () => {
   const [stats, setStats] = useState({
     totalEnrollments: 0,
+    totalVolunteers: 0,
     totalBlogPosts: 0,
     recentEnrollments: [],
+    recentVolunteers: [],
     recentPosts: []
   });
 
@@ -22,10 +24,15 @@ const AdminDashboard = () => {
     // Mock data for now - replace with actual API calls
     setStats({
       totalEnrollments: 42,
+      totalVolunteers: 15,
       totalBlogPosts: 8,
       recentEnrollments: [
         { id: 1, name: "John Doe", email: "john@example.com", skillInterest: "Web Development", createdAt: "2024-12-01" },
         { id: 2, name: "Jane Smith", email: "jane@example.com", skillInterest: "Graphic Design", createdAt: "2024-12-02" },
+      ],
+      recentVolunteers: [
+        { id: 1, name: "Dr. Sarah Wilson", email: "sarah@example.com", areaOfExpertise: "Web Development", createdAt: "2024-12-01" },
+        { id: 2, name: "Prof. Michael Brown", email: "michael@example.com", areaOfExpertise: "Graphic Design", createdAt: "2024-12-02" },
       ],
       recentPosts: [
         { id: 1, title: "Welcome to Ilum Stars", status: "published", createdAt: "2024-12-01" },
@@ -45,7 +52,7 @@ const AdminDashboard = () => {
 
       <main className="max-w-7xl mx-auto p-6">
         {/* Stats Overview */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">Total Enrollments</CardTitle>
@@ -54,6 +61,17 @@ const AdminDashboard = () => {
             <CardContent>
               <div className="text-2xl font-bold">{stats.totalEnrollments}</div>
               <p className="text-xs text-muted-foreground">Cohort 1 applications</p>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">Volunteer Applications</CardTitle>
+              <UserCheck className="h-4 w-4 text-muted-foreground" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">{stats.totalVolunteers}</div>
+              <p className="text-xs text-muted-foreground">Facilitator applications</p>
             </CardContent>
           </Card>
 
@@ -80,9 +98,21 @@ const AdminDashboard = () => {
                 </Link>
               </Button>
               <Button asChild size="sm" variant="outline" className="w-full">
+                <Link to="/admin/volunteers">
+                  <UserCheck className="h-4 w-4 mr-2" />
+                  View Volunteers
+                </Link>
+              </Button>
+              <Button asChild size="sm" variant="outline" className="w-full">
                 <Link to="/admin/blog/new">
                   <Plus className="h-4 w-4 mr-2" />
                   New Blog Post
+                </Link>
+              </Button>
+              <Button asChild size="sm" variant="outline" className="w-full">
+                <Link to="/admin/admission-mailer">
+                  <Mail className="h-4 w-4 mr-2" />
+                  Admission Mailer
                 </Link>
               </Button>
             </CardContent>
@@ -90,7 +120,7 @@ const AdminDashboard = () => {
         </div>
 
         {/* Recent Activity */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Recent Enrollments */}
           <Card>
             <CardHeader className="flex flex-row items-center justify-between">
@@ -112,6 +142,34 @@ const AdminDashboard = () => {
                     </div>
                     <div className="text-sm text-muted-foreground">
                       {enrollment.createdAt}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Recent Volunteers */}
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between">
+              <CardTitle>Recent Volunteers</CardTitle>
+              <Button asChild size="sm" variant="outline">
+                <Link to="/admin/volunteers">View All</Link>
+              </Button>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                {stats.recentVolunteers.map((volunteer: any) => (
+                  <div key={volunteer.id} className="flex items-center justify-between p-3 border rounded-lg">
+                    <div>
+                      <p className="font-medium">{volunteer.name}</p>
+                      <p className="text-sm text-muted-foreground">{volunteer.email}</p>
+                      <Badge variant="secondary" className="text-xs mt-1">
+                        {volunteer.areaOfExpertise}
+                      </Badge>
+                    </div>
+                    <div className="text-sm text-muted-foreground">
+                      {volunteer.createdAt}
                     </div>
                   </div>
                 ))}
